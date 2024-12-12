@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+      /* Modified CSS for Registration Form */
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: rgb(0, 255, 255); /* Cyan background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 220px; /* Adjusted to be similar to the admin dashboard */
+    border: solid red;
+}
+
+h2 {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+label {
+    width: 30%;
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="date"], 
+input[type="email"] {
+    width: 120px; /* Matching the width from the admin dashboard */
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Full width for submit button */
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    display: block;
+    text-align: right;
+}
+
+/* Additional adjustments for radio buttons and other fields */
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input[type="radio"] {
+    margin-right: 10px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Updation Form</h2>
+        <form action='attendanceurl' method="POST" onsubmit="return validateForm()">
+            
+            <!-- Person Type Selection -->
+            <div class="form-group">
+                <label>Select Role:</label>
+                <label><input type="radio" name="role" value="student" id="studentRadio"> Student</label>
+                <label><input type="radio" name="role" value="staff" id="staffRadio"> Staff</label>
+            </div>
+
+            <!-- Student Updation Form -->
+            <div id="studentForm" style="display:none;">
+                <div class="form-group">
+                    <label for="enrollment">Enrollment:</label>
+                    <input type="text" id="enrollment" name="enrollment">
+                    <span id="enrollmentErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
+                    <span id="passwordErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="fname">Name:</label>
+                    <input type="text" id="fname" name="fname">
+                    <span id="fnameErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phno">Phone No:</label>
+                    <input type="text" id="phno" name="phno">
+                    <span id="phnoErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                    <span id="emailErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="dob">DOB:</label>
+                    <input type="date" id="dob" name="dob">
+                    <span id="dobErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="course">Course:</label>
+                    <input type="text" id="course" name="course">
+                    <span id="courseErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="specialization">Specialization:</label>
+                    <input type="text" id="specialization" name="specialization">
+                    <span id="specializationErr" class="error"></span>
+                </div>
+            </div>
+
+            <!-- Staff Insert Form -->
+            <div id="staffForm" style="display:none;">
+                <div class="form-group">
+                    <label for="staffEnrollment">Enrollment:</label>
+                    <input type="text" id="staffEnrollment" name="enrollment">
+                    <span id="staffEnrollmentErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="staffPassword">Password:</label>
+                    <input type="password" id="staffPassword" name="staffPassword">
+                    <span id="staffPasswordErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="staffName">Name:</label>
+                    <input type="text" id="staffName" name="staffName">
+                    <span id="staffNameErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="faculty">Faculty:</label>
+                    <input type="text" id="faculty" name="faculty">
+                    <span id="facultyErr" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <input type="text" id="department" name="department">
+                    <span id="departmentErr" class="error"></span>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-button">
+                <input type="submit" name="submit" value="update">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const studentRadio = document.getElementById('studentRadio');
+        const staffRadio = document.getElementById('staffRadio');
+        const studentForm = document.getElementById('studentForm');
+        const staffForm = document.getElementById('staffForm');
+
+        studentRadio.addEventListener('change', () => {
+            studentForm.style.display = 'block';
+            staffForm.style.display = 'none';
+        });
+
+        staffRadio.addEventListener('change', () => {
+            staffForm.style.display = 'block';
+            studentForm.style.display = 'none';
+        });
+
+        function validateForm() {
+            const role = document.querySelector('input[name="role"]:checked');
+            if (!role) {
+                alert('Please select a role: Student or Staff');
+                return false;
+            }
+
+            if (role.value === 'student') {
+                return validateStudentForm();
+            } else {
+                return validateStaffForm();
+            }
+        }
+
+        function validateStudentForm() {
+            let valid = true;
+            const enrollment = document.getElementById('enrollment').value;
+            const password = document.getElementById('password').value;
+            const fname = document.getElementById('fname').value;
+            const lname = document.getElementById('lname').value;
+            const phno = document.getElementById('phno').value;
+            const email = document.getElementById('email').value;
+            const dob = document.getElementById('dob').value;
+            const course = document.getElementById('course').value;
+            const specialization = document.getElementById('specialization').value;
+
+            // Enrollment validation
+            if (enrollment === "") {
+                document.getElementById('enrollmentErr').innerText = "Enrollment is required";
+                valid = false;
+            } else {
+                document.getElementById('enrollmentErr').innerText = "";
+            }
+
+            // Password validation
+            if (password === "") {
+                document.getElementById('passwordErr').innerText = "Password is required";
+                valid = false;
+            } else {
+                document.getElementById('passwordErr').innerText = "";
+            }
+
+            // First Name validation
+            if (fname === "") {
+                document.getElementById('fnameErr').innerText = "First name is required";
+                valid = false;
+            } else {
+                document.getElementById('fnameErr').innerText = "";
+            }
+
+            // Last Name validation
+            if (lname === "") {
+                document.getElementById('lnameErr').innerText = "Last name is required";
+                valid = false;
+            } else {
+                document.getElementById('lnameErr').innerText = "";
+            }
+      
+			     // Phone number validation (must be 10 digits)
+            if (phno.length !== 10 || isNaN(phno)) {
+                document.getElementById('phnoErr').innerText = "Phone number must be 10 digits";
+                valid = false;
+            } else {
+                document.getElementById('phnoErr').innerText = "";
+            }
+
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailErr').innerText = "Invalid email format";
+                valid = false;
+            } else {
+                document.getElementById('emailErr').innerText = "";
+            }
+
+            // DOB validation
+            if (dob === "") {
+                document.getElementById('dobErr').innerText = "Date of birth is required";
+                valid = false;
+            } else {
+                document.getElementById('dobErr').innerText = "";
+            }
+
+            // Course validation
+            if (course === "") {
+                document.getElementById('courseErr').innerText = "Course is required";
+                valid = false;
+            } else {
+                document.getElementById('courseErr').innerText = "";
+            }
+
+            // Specialization validation
+            if (specialization === "") {
+                document.getElementById('specializationErr').innerText = "Specialization is required";
+                valid = false;
+            } else {
+                document.getElementById('specializationErr').innerText = "";
+            }
+
+            return valid;
+        }
+
+        function validateStaffForm() {
+            let valid = true;
+            const enrollment = document.getElementById('staffEnrollment').value;
+            const password = document.getElementById('staffPassword').value;
+            const staffName = document.getElementById('staffName').value;
+            const faculty = document.getElementById('faculty').value;
+            const department = document.getElementById('department').value;
+
+            // Enrollment validation
+            if (enrollment === "") {
+                document.getElementById('staffEnrollmentErr').innerText = "Enrollment is required";
+                valid = false;
+            } else {
+                document.getElementById('staffEnrollmentErr').innerText = "";
+            }
+
+            // Password validation
+            if (password === "") {
+                document.getElementById('staffPasswordErr').innerText = "Password is required";
+                valid = false;
+            } else {
+                document.getElementById('staffPasswordErr').innerText = "";
+            }
+
+            // Name validation
+            if (staffName === "") {
+                document.getElementById('staffNameErr').innerText = "Name is required";
+                valid = false;
+            } else {
+                document.getElementById('staffNameErr').innerText = "";
+            }
+
+            // Faculty validation
+            if (faculty === "") {
+                document.getElementById('facultyErr').innerText = "Faculty is required";
+                valid = false;
+            } else {
+                document.getElementById('facultyErr').innerText = "";
+            }
+
+            // Department validation
+            if (department === "") {
+                document.getElementById('departmentErr').innerText = "Department is required";
+                valid = false;
+            } else {
+                document.getElementById('departmentErr').innerText = "";
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>
+			
