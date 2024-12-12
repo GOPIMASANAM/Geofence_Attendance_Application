@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgb(0, 255, 255);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            height:350px;
+            border: solid red;
+        }
+        .menu {
+            width: 30px;
+            height: 40px;
+            background-color: #ccc;
+            display: inline-block;
+        }
+        .img-placeholder {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            border: 2px solid pink;
+            display: inline-block;
+            border-radius: 50%;
+            float: right;
+            padding: 8px;
+            padding: left;
+           
+        }
+        .field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .field label {
+            width: 30%;
+        }
+        .field input {
+            width: 120px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+           
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 style="text-align:center">Staff Dashboard</h2>
+        <div class="menu"></div>
+        <div class="img-placeholder">IMG</div>
+         <br/><br/>  
+         
+          <div class="field">
+            <label for="enrollment">Enrollment:</label>
+            <input type="text" id="enrollment" name="enrollment"  value="${enrollment}" readonly>
+        </div> 
+        <div class="field"> 
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"  value="${name}" readonly>
+        </div>
+        <!-- 
+          <div class="field">
+            <label for="faculty">Faculty:</label>
+            <input type="text" id="faculty" name="faculty"  value="${faculty}" readonly>
+        </div>
+
+        <div class="field">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department"   value="${department}" readonly>
+        </div>
+        -->
+        <form style="text-align:center"; action="staffurl">
+           <button>Set Attendence</button>
+        </form>
+        
+       
+       
+    </div>
+
+</body>
+</html>
