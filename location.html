@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Form</title>
+    <style>
+    		 body {
+          font-family: Arial, sans-serif;
+          background-color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 2;
+      }
+    		
+       
+        .location-form {
+       	    background-color:rgb(0, 255, 255); ;
+            border-radius: 8px;
+            width:180px;
+             border: solid red;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 150px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 40px auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body >
+    <div class="location-form">
+        <h1>Location</h1>
+        <form action="attendanceurl" method="post">
+            <label for="shape">Shape:</label>
+            <input type="radio" id="rectangular" name="shape" value="rectangular">
+            <label for="rectangular">Rectangular</label>
+            <input type="radio" id="circular" name="shape" value="circular">
+            <label for="circular">Circular</label>
+            <br>
+            <div id="rectangular-points" style="display: none;">
+                <label for="point1">Point 1:</label>
+                <input type="text" name="point1" id="point1"><br>
+                <label for="point2">Point 2:</label>
+                <input type="text" name="point2" id="point2"><br>
+                <label for="point3">Point 3:</label>
+                <input type="text" name="point3" id="point3"><br>
+                <label for="point4">Point 4:</label>
+                <input type="text" name="point4" id="point4"><br>
+            </div>
+            <div id="circular-point" style="display: none;">
+                <label for="center">Center:</label>
+                <input type="text" name="center" id="center"><br>
+            </div>
+            <input type="submit" name="Submit" value="setlocation">
+        </form>
+    </div>
+    <script>
+        const rectangularPoints = document.getElementById("rectangular-points");
+        const circularPoint = document.getElementById("circular-point");
+        const rectangularRadio = document.getElementById("rectangular");
+        const circularRadio = document.getElementById("circular");
+
+        rectangularRadio.addEventListener("change", () => {
+            rectangularPoints.style.display = "block";
+            circularPoint.style.display = "none";
+        });
+
+        circularRadio.addEventListener("change", () => {
+            rectangularPoints.style.display = "none";
+            circularPoint.style.display = "block";
+        });
+    </script>
+</body>
+</html>
