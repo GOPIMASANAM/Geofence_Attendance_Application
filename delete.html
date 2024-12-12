@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .update {
+            background-color: rgb(0, 255, 255);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 240px;
+            border: solid red;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .input-field {
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 20px auto;
+            width: 40%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            grid-column: 2;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var enrollment = document.getElementById("enrollment").value;
+            var userType = document.querySelector('input[name="role"]:checked'); // Ensure 'role' is used
+
+            if (enrollment.trim() === "") {
+                alert("Enrollment number must be filled out.");
+                return false;
+            }
+
+            if (!userType) {
+                alert("Please select a user type.");
+                return false;
+            }
+
+            return true; // Form is valid
+        }
+    </script>
+</head>
+<body>
+    <div class="update">
+        <h2 style="text-align: center;">Delete User</h2>
+        <form action='attendanceurl' method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="enrollment">Enrollment:</label>
+                <input type="text" id="enrollment" name="enrollment" class="input-field" required>
+            </div>
+
+            <div class="form-group">
+                <label>Person:</label>
+                <div>
+                    <input type="radio" name="role" value="staff" id="staff" required>Staff
+                    <input type="radio" name="role" value="student" id="student">Student
+                </div>
+            </div>
+
+            <div class="submit-button">
+                <input type="submit" name="submit" value="delete">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
